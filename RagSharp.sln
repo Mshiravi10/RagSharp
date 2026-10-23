@@ -5,7 +5,7 @@ VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RagSharp", "RagSharp.csproj", "{E4702716-ED28-465C-9F7B-97800A2649E3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RagSharpTestApp", "..\RagSharpTestApp\RagSharpTestApp.csproj", "{61D36D3E-7717-4E93-B7BA-89FF3DEFDBD6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RagSharp.Tests", "tests\RagSharp.Tests\RagSharp.Tests.csproj", "{61D36D3E-7717-4E93-B7BA-89FF3DEFDBD6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

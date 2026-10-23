@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace RagSharp.Utils
 {
@@ -18,16 +18,15 @@ namespace RagSharp.Utils
 
             text = text.Trim();
 
-            return text
+            text = text
                 .Replace("ي", "ی")                 // عربی به فارسی
                 .Replace("ك", "ک")                 // عربی به فارسی
                 .Replace("‌", "")                  // نیم‌فاصله
                 .Replace("ـ", "")                  // کشیده
                 .Replace("\u200c", "")             // Zero-width non-joiner
-                .Replace("\r", "")
-                .Replace("\n", " ")
-                .Replace("  ", " ")                // فاصله‌های اضافه
                 .Normalize(NormalizationForm.FormC);
+
+            return Regex.Replace(text, @"\s+", " ").Trim();
         }
     }
 }

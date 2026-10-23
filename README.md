@@ -1,7 +1,9 @@
 # 🧠 RagSharp
 
-**RagSharp** یک موتور Retrieval-Augmented Generation (RAG) پیشرفته با معماری ماژولار است که با .NET توسعه داده شده  
-و از زبان فارسی، انگلیسی، و پردازش هوشمند چندمرحله‌ای پشتیبانی می‌کند.
+**RagSharp** یک کتابخانه متن باز برای ساخت جریان های Retrieval-Augmented Generation در .NET است
+این پروژه اجزای بازیابی پردازش سند حافظه برداری و تولید پاسخ مستند را در یک معماری ماژولار کنار هم قرار می دهد
+
+RagSharp is an open source modular toolkit for building retrieval augmented generation pipelines in .NET with first class Persian and English text processing
 
 ---
 
@@ -16,11 +18,14 @@
 
 ---
 
-## 🚀 نصب
+## 🚀 نصب از سورس
 
 ```bash
-dotnet add package RagSharp
+git clone https://github.com/Mshiravi10/RagSharp.git
+dotnet add <your-project>.csproj reference RagSharp/RagSharp.csproj
 ```
+
+> بسته NuGet پس از انتشار رسمی از همین بخش قابل نصب خواهد بود
 
 ---
 

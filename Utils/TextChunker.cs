@@ -1,42 +1,58 @@
-﻿namespace RagSharp.Utils;
+using System.Text;
+using System.Text.RegularExpressions;
+
+namespace RagSharp.Utils;
 
 public static class TextChunker
 {
     /// <summary>
-    /// متن را به chunkهایی با اندازه محدود تقسیم می‌کند.
+    /// متن را بدون تولید قطعه خالی به بخش هایی با اندازه محدود تقسیم می کند
     /// </summary>
-    /// <param name="text">متن کامل ورودی</param>
-    /// <param name="maxCharsPerChunk">حداکثر تعداد کاراکتر در هر chunk</param>
     public static List<string> Chunk(string text, int maxCharsPerChunk = 500)
     {
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(maxCharsPerChunk);
+
+        if (string.IsNullOrWhiteSpace(text))
+            return [];
+
         var chunks = new List<string>();
-        var currentChunk = new List<string>();
-        int currentLength = 0;
+        var currentChunk = new StringBuilder(maxCharsPerChunk);
 
-        var lines = text.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
-
-        foreach (var line in lines)
+        void FlushCurrentChunk()
         {
-            var trimmed = line.Trim();
-            if (string.IsNullOrWhiteSpace(trimmed))
-                continue;
+            if (currentChunk.Length == 0)
+                return;
 
-            if (currentLength + trimmed.Length > maxCharsPerChunk)
+            chunks.Add(currentChunk.ToString());
+            currentChunk.Clear();
+        }
+
+        foreach (var word in Regex.Split(text.Trim(), @"\s+"))
+        {
+            if (word.Length > maxCharsPerChunk)
             {
-                chunks.Add(string.Join(" ", currentChunk));
-                currentChunk.Clear();
-                currentLength = 0;
+                FlushCurrentChunk();
+
+                for (var offset = 0; offset < word.Length; offset += maxCharsPerChunk)
+                {
+                    var length = Math.Min(maxCharsPerChunk, word.Length - offset);
+                    chunks.Add(word.Substring(offset, length));
+                }
+
+                continue;
             }
 
-            currentChunk.Add(trimmed);
-            currentLength += trimmed.Length;
+            var requiredLength = currentChunk.Length == 0 ? word.Length : word.Length + 1;
+            if (currentChunk.Length + requiredLength > maxCharsPerChunk)
+                FlushCurrentChunk();
+
+            if (currentChunk.Length > 0)
+                currentChunk.Append(' ');
+
+            currentChunk.Append(word);
         }
 
-        if (currentChunk.Count > 0)
-        {
-            chunks.Add(string.Join(" ", currentChunk));
-        }
-
+        FlushCurrentChunk();
         return chunks;
     }
 }

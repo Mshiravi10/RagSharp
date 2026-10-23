@@ -4,7 +4,16 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Description>Modular retrieval-augmented generation building blocks for .NET applications.</Description>
+    <PackageId>RagSharp</PackageId>
+    <Authors>MohammadAmin Shiravi</Authors>
+    <RepositoryUrl>https://github.com/Mshiravi10/RagSharp</RepositoryUrl>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="tests\**\*.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="DocumentFormat.OpenXml" Version="3.3.0" />
